@@ -4,8 +4,8 @@ provider "aws" {
 }
 
 resource "aws_acm_certificate" "default" {
-  provider          = aws.acm
-  domain_name       = var.domain
+  provider    = aws.acm
+  domain_name = var.domain
 
   validation_method = "DNS"
   lifecycle {

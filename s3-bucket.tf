@@ -2,7 +2,7 @@ module "website_s3_bucket" {
   source = "github.com/dplabs/terraform-module-private-s3-bucket"
 
   bucket = var.domain
-  tags = merge(local.common_tags, { Type = var.target_domain == null ? "website" : "website-redirection"})
+  tags   = merge(local.common_tags, { Type = var.target_domain == null ? "website" : "website-redirection" })
 }
 
 resource "aws_s3_bucket_website_configuration" "website_s3_bucket_redirection" {
@@ -18,7 +18,7 @@ resource "aws_s3_bucket_website_configuration" "website_s3_bucket_redirection" {
 
 data "aws_iam_policy_document" "s3_policy" {
   statement {
-    sid = "CloudFront"
+    sid       = "CloudFront"
     actions   = ["s3:GetObject"]
     resources = ["${module.website_s3_bucket.s3_bucket_arn}/*"]
 
