@@ -3,7 +3,8 @@ resource "aws_cloudfront_origin_access_identity" "s3_access_identy" {
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
-  enabled         = var.target_domain == null
+  enabled         = true
+  count           = var.target_domain == null ? 1 : 0
   is_ipv6_enabled = true
 
   default_root_object = "index.html"
@@ -71,7 +72,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution_redirection" {
-  enabled         = var.target_domain != null
+  enabled         = true
+  count           = var.target_domain == null ? 0 : 1
   is_ipv6_enabled = true
 
   aliases = [module.website_s3_bucket.s3_bucket]
