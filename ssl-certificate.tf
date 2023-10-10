@@ -11,6 +11,7 @@ resource "aws_acm_certificate" "default" {
   lifecycle {
     create_before_destroy = true
   }
+
   tags = local.common_tags
 }
 
@@ -24,5 +25,6 @@ resource "aws_ssm_parameter" "ssl-certificate" {
   name  = "/application/${var.domain}/ssl-certificate"
   type  = "String"
   value = aws_acm_certificate.default.arn
-  tags  = local.common_tags
+
+  tags = local.common_tags
 }

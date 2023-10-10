@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  tags = local.common_tags
+  tags = merge(local.common_tags, { Type = "website" })
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution_redirection" {
@@ -124,5 +124,5 @@ resource "aws_cloudfront_distribution" "s3_distribution_redirection" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  tags = local.common_tags
+  tags = merge(local.common_tags, { Type = "website-redirection" })
 }
