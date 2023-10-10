@@ -21,9 +21,8 @@ resource "aws_acm_certificate_validation" "default" {
 }
 
 resource "aws_ssm_parameter" "ssl-certificate" {
-  name      = "/application/${var.domain}/ssl-certificate"
-  type      = "String"
-  value     = aws_acm_certificate.default.arn
-  tags      = local.common_tags
-  overwrite = true
+  name  = "/application/${var.domain}/ssl-certificate"
+  type  = "String"
+  value = aws_acm_certificate.default.arn
+  tags  = local.common_tags
 }
