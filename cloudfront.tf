@@ -12,14 +12,28 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   aliases = [module.website_s3_bucket.s3_bucket]
   comment = "${var.domain} (S3 bucket)"
 
+  # This type of origin does not resolve the index.html file for URLs not including it (aside from root level)
+  # origin {
+  #   domain_name = module.website_s3_bucket.s3_bucket_regional_domain_name
+  #   origin_id   = "S3.${module.website_s3_bucket.s3_bucket}"
+  #
+  #   s3_origin_config {
+  #     origin_access_identity = aws_cloudfront_origin_access_identity.s3_access_identy.cloudfront_access_identity_path
+  #   }
+  # }
+
   origin {
-    domain_name = module.website_s3_bucket.s3_bucket_regional_domain_name
+    domain_name = module.website_s3_bucket.s3_bucket_website_endpoint
     origin_id   = "S3.${module.website_s3_bucket.s3_bucket}"
 
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.s3_access_identy.cloudfront_access_identity_path
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
     }
   }
+
 
   // to enable virtual paths
   custom_error_response {
