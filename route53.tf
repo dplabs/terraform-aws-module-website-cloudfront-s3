@@ -2,7 +2,7 @@ data "aws_route53_zone" "main" {
   name = var.route53_zone_name
 }
 
-resource "aws_route53_record" "root-a-cloudfront" {
+resource "aws_route53_record" "root_a_cloudfront" {
   count = var.target_domain == null ? 1 : 0
 
   zone_id = data.aws_route53_zone.main.zone_id
@@ -16,7 +16,7 @@ resource "aws_route53_record" "root-a-cloudfront" {
   }
 }
 
-resource "aws_route53_record" "root-a-s3-website-redirection" {
+resource "aws_route53_record" "root_a_website_redirection" {
   count = var.target_domain == null ? 0 : 1
 
   zone_id = data.aws_route53_zone.main.zone_id

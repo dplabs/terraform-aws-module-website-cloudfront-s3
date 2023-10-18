@@ -35,7 +35,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
 
-  // to enable virtual paths
+  # to enable virtual paths
   custom_error_response {
     error_caching_min_ttl = 0
     error_code            = 404

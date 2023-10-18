@@ -38,7 +38,7 @@ resource "aws_route53_record" "validation" {
   zone_id         = data.aws_route53_zone.main.zone_id
 }
 
-resource "aws_ssm_parameter" "ssl-certificate" {
+resource "aws_ssm_parameter" "ssl_certificate" {
   name  = "/application/${var.domain}/ssl-certificate"
   type  = "String"
   value = aws_acm_certificate.default.arn

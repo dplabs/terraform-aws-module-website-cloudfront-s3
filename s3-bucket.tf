@@ -7,5 +7,3 @@ module "website_s3_bucket" {
 
   tags = local.common_tags
 }
-
-
