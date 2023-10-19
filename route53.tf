@@ -1,3 +1,6 @@
+data "aws_region" "current" {
+}
+
 data "aws_route53_zone" "main" {
   name = var.route53_zone_name
 }
@@ -24,7 +27,7 @@ resource "aws_route53_record" "root_a_website_redirection" {
   type    = "A"
 
   alias {
-    name                   = module.website_s3_bucket.s3_bucket_website_endpoint
+    name                   = "s3-website.${data.aws_region.current.name}.amazonaws.com"
     zone_id                = module.website_s3_bucket.s3_bucket_hosted_zone_id
     evaluate_target_health = false
   }
