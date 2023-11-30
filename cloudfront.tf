@@ -4,13 +4,13 @@ resource "aws_cloudfront_origin_access_identity" "s3_access_identy" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled         = true
-  count           = var.target_domain == null ? 1 : 0
+  count           = var.target_domain == null || var.cloudfront_distribution_for_redirection ? 1 : 0
   is_ipv6_enabled = true
 
   default_root_object = "index.html"
 
   aliases = [module.website_s3_bucket.s3_bucket]
-  comment = "${var.domain} (S3 bucket)"
+  comment = var.target_domain != null ? "${var.domain} (redirecting to ${var.target_domain})" : "${var.domain} (S3 bucket)"
 
   # This type of origin does not resolve the index.html file for URLs not including it (aside from root level)
   # origin {

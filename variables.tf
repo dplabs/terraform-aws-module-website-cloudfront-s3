@@ -9,6 +9,12 @@ variable "target_domain" {
   default     = null
 }
 
+variable "cloudfront_distribution_for_redirection" {
+  description = "Create a CloudFront distribution for redirection - enabling support for HTTPS redirects"
+  type        = bool
+  default     = true
+}
+
 variable "route53_zone_name" {
   description = "Name of the Route53 zone hosting this domain"
   type        = string

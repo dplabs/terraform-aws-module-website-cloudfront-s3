@@ -6,7 +6,7 @@ data "aws_route53_zone" "main" {
 }
 
 resource "aws_route53_record" "root_a_cloudfront" {
-  count = var.target_domain == null ? 1 : 0
+  count = var.target_domain == null || var.cloudfront_distribution_for_redirection ? 1 : 0
 
   zone_id = data.aws_route53_zone.main.zone_id
   name    = module.website_s3_bucket.s3_bucket
@@ -20,7 +20,7 @@ resource "aws_route53_record" "root_a_cloudfront" {
 }
 
 resource "aws_route53_record" "root_a_website_redirection" {
-  count = var.target_domain == null ? 0 : 1
+  count = var.target_domain != null && !var.cloudfront_distribution_for_redirection ? 1 : 0
 
   zone_id = data.aws_route53_zone.main.zone_id
   name    = module.website_s3_bucket.s3_bucket
