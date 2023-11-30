@@ -1,5 +1,5 @@
 module "website_s3_bucket" {
-  source = "github.com/dplabs/terraform-module-s3-bucket"
+  source = "github.com/dplabs/terraform-aws-module-s3-bucket"
   #source = "../terraform-module-s3-bucket"
 
   domain_name = var.domain
